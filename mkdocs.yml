@@ -1,0 +1,42 @@
+site_name: API Test dashboard using Grafana
+site_description: Template repository for creating dashboard using Grafana for API tests.
+
+plugins:
+  - search
+  - tags:
+      tags_file: tags.md
+markdown_extensions:
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+      clickable_checkbox: false
+
+nav:
+  - Home: index.md
+
+theme:
+  name: material
+  palette:
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      primary: teal
+      scheme: default
+      accent: lime
+      toggle:
+        icon: material/lightbulb
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: lime
+      toggle:
+        icon: material/lightbulb-outline
+        name: Switch to light mode
