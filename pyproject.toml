@@ -1,0 +1,29 @@
+[tool.black]
+target-version = ["py39"]
+color = false
+line-length = 120
+exclude = '''
+/(
+    \.git
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | build
+    | venv
+)/
+'''
+
+[tool.mypy]
+mypy_path = ""
+warn_return_any = true
+warn_unreachable = true
+warn_unused_configs = true
+warn_unused_ignores = true
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "ignore::DeprecationWarning"
+]
+markers = [
+    "schema      : Schema related tests",
+]
