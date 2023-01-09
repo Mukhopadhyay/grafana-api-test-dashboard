@@ -1,0 +1,6 @@
+alembic==1.9.1
+greenlet==2.0.1
+Mako==1.2.4
+MarkupSafe==2.1.1
+SQLAlchemy==1.4.46
+SQLAlchemy-Utils==0.39.0
