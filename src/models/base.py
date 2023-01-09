@@ -7,7 +7,7 @@ from sqlalchemy.sql import text
 from sqlalchemy_utils import UUIDType
 
 
-@as_declarative
+@as_declarative()
 class Base:
     __name__: str
 
