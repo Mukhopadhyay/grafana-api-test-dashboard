@@ -11,7 +11,7 @@ from sqlalchemy_utils import UUIDType
 class Base:
     __name__: str
 
-    id = Column(UUIDType, primary_key=True, server_default=text("get_random_uuid()"))
+    id = Column(UUIDType, primary_key=True, server_default=text("uuid_generate_v4()"))
 
     @declared_attr
     def __tablename__(cls) -> str:

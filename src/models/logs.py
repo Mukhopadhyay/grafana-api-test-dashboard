@@ -5,6 +5,7 @@ from sqlalchemy_utils import UUIDType
 from src.models.base import Base, CreateMixin
 
 
+# TODO: Not used yet
 class Request(Base, CreateMixin):
     endpoint_id = Column(UUIDType, ForeignKey("endpoint.id", ondelete="CASCADE", onupdate="CASCADE"))
     elapsed = Column(Numeric, nullable=False)

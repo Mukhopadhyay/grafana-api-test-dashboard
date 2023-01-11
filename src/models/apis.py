@@ -1,21 +1,30 @@
-from sqlalchemy import Column, ForeignKey, String
+from sqlalchemy import Column, ForeignKey, Integer, Numeric, String
 from sqlalchemy.dialects.postgresql import JSON
 from sqlalchemy_utils import UUIDType
 
-from src.models.base import Base, CreateMixin, UpdateMixin
+from models.base import Base, CreateMixin, UpdateMixin
+
+# # TODO: Not used yet
+# class Endpoint(Base, CreateMixin, UpdateMixin):
+#     name = Column(String, nullable=False, unique=True)
+#     url = Column(String, nullable=False)
+#     version = Column(String, nullable=True)
 
 
-class Endpoint(Base, CreateMixin, UpdateMixin):
-    name = Column(String, nullable=False, unique=True)
+# # TODO: Not used yet
+# class RequestBody(Base, CreateMixin, UpdateMixin):
+#     endpoint_id = Column(UUIDType, ForeignKey("endpoint.id", ondelete="CASCADE", onupdate="CASCADE"))
+#     body = Column(JSON, nullable=False)
+
+
+# # TODO: Not used yet
+# class ResponseSchema(Base, CreateMixin, UpdateMixin):
+#     endpoint_id = Column(UUIDType, ForeignKey("endpoint.id", ondelete="CASCADE", onupdate="CASCADE"))
+#     body = Column(JSON, nullable=False)
+
+
+class Endpoint(Base, CreateMixin):
+    name = Column(String, nullable=False)
     url = Column(String, nullable=False)
-    version = Column(String, nullable=True)
-
-
-class RequestBody(Base, CreateMixin, UpdateMixin):
-    endpoint_id = Column(UUIDType, ForeignKey("endpoint.id", ondelete="CASCADE", onupdate="CASCADE"))
-    body = Column(JSON, nullable=False)
-
-
-class ResponseSchema(Base, CreateMixin, UpdateMixin):
-    endpoint_id = Column(UUIDType, ForeignKey("endpoint.id", ondelete="CASCADE", onupdate="CASCADE"))
-    body = Column(JSON, nullable=False)
+    elapsed = Column(Numeric, nullable=False)
+    status_code = Column(Integer, nullable=False)
