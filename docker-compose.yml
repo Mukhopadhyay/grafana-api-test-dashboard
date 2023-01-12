@@ -2,15 +2,15 @@ version: '3.9'
 # name: grafana-api-test-dashboard
 services:
   # Database (Postgres) service
-  db:
-    image: postgres:14.1-alpine
+  postgres:
+    image: postgres:latest
     container_name: grafana-dash-db
     environment:
-      - PGUSER=postgres
+      - PGUSER=grafana
     env_file:
       - ./src/.env
     ports:
-      - 2345:5432
+      - 6432:5432
     shm_size: 1gb
     healthcheck:
       test: ["CMD-SHELL", "pg_isready"]
@@ -20,17 +20,17 @@ services:
     networks:
       - default
     restart: always
-  # Python API tester
-  tester:
+
+  # Python API service
+  grafana-fastapi-server:
     build:
       context: .
       dockerfile: Dockerfile
     working_dir: /src
     depends_on:
-      - db
+      - postgres
     ports:
       - 8000:8000
     restart: always
     networks:
       - default
-# alembic revision -m "migration-script" --autogenerate && alembic upgrade head

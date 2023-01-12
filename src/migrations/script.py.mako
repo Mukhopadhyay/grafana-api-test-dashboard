@@ -8,6 +8,10 @@ Create Date: ${create_date}
 from alembic import op
 import sqlalchemy as sa
 import sqlalchemy_utils
+
+# These imports are for the extentions
+from sqlalchemy.sql import text
+
 ${imports if imports else ""}
 
 # revision identifiers, used by Alembic.
@@ -18,6 +22,8 @@ depends_on = ${repr(depends_on)}
 
 
 def upgrade() -> None:
+    # This creates the extension for UUID first!
+    op.execute(text('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";'))
     ${upgrades if upgrades else "pass"}
 
 

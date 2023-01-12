@@ -9,7 +9,7 @@ from sqlalchemy import engine_from_config, pool
 config = context.config
 
 DB_URI = PostgresDsn.build(
-    scheme="postgresql", user="postgres", password="postgres", host="localhost", port=str(5432), path="/test"
+    scheme="postgresql", user="grafana", password="grafana", host="postgres", port=str(5432), path="/grafana"
 )
 config.set_main_option("sqlalchemy.url", DB_URI)
 

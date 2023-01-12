@@ -27,4 +27,5 @@ class Endpoint(Base, CreateMixin):
     name = Column(String, nullable=False)
     url = Column(String, nullable=False)
     elapsed = Column(Numeric, nullable=False)
+    category = Column(String, nullable=False)
     status_code = Column(Integer, nullable=False)
