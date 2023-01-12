@@ -29,6 +29,8 @@ services:
     working_dir: /src
     depends_on:
       - postgres
+    # volumes:
+    #   - ./src:/api
     ports:
       - 8000:8000
     restart: always

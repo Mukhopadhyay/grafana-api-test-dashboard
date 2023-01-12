@@ -1,8 +1,7 @@
 #!/bin/sh
 
-# Wait for 10 seconds
-sleep 10
-echo "Done waiting!"
+# Caveman wait for DB to get started
+sleep 5
 
 # Database migration
 alembic revision -m "migration-script" --autogenerate
