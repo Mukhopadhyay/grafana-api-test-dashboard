@@ -1,7 +1,7 @@
 """
 Project level ocnfigurations
 """
-from pydantic import BaseSettings, Field
+from pydantic import BaseSettings, Field, Optional
 
 
 class DatabaseConfig(BaseSettings):
@@ -10,6 +10,7 @@ class DatabaseConfig(BaseSettings):
     postgres_db: str
     postgres_server: str
     postgres_port: int
+    postgres_service: str
 
 
 class Settings(BaseSettings):
@@ -19,13 +20,13 @@ class Settings(BaseSettings):
 class GrafanaDataSource(BaseSettings):
     endpoint: str = "/api/datasources"
     name: str
-    type: str
+    type: Optional[str] = "postgres"
     db_host: str
-    # name: str = Field(..., env="NAME")
-    # type: str = Field(..., env="TYPE")
-    # db_host: str = Field(..., env="DB_HOST")
 
 
 class GrafanaConfig(BaseSettings):
-    api_base: str = "http://admin:admin@localhost:3000"
+    def_port: Optional[int] = 3000
+    def_username: Optional[str] = 'admin'
+    def_password: Optional[str] = 'admin'
+    service_name: str = 'grafana-dashboard'
     datasource: GrafanaDataSource = GrafanaDataSource(_env_file=".env.grafana", _env_file_encoding="utf-8")
