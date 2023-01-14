@@ -6,7 +6,7 @@ import requests
 
 from schemas import grafana_http
 
-base = "http://admin:admin@localhost:3000"
+base = "http://admin:admin@grafana-dashboard:3000"
 
 
 def get_data_sources() -> Dict[str, Any]:
