@@ -1,8 +1,8 @@
 from fastapi import APIRouter
 
 from api.healthcheck import router as healthcheck_router
-from api.utils import router as utility_router
+from api.grafana import router as grafana_router
 
 router = APIRouter()
-router.include_router(healthcheck_router, prefix="/healthcheck", tags=["healthchecks"])
-router.include_router(utility_router, prefix="/utils", tags=["utility"])
+router.include_router(healthcheck_router, prefix="/healthcheck", tags=["Healthcheck"])
+router.include_router(grafana_router, prefix="/grafana", tags=["Grafana"])
