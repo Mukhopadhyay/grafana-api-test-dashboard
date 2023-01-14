@@ -1,7 +1,9 @@
-from uuid import UUID
 from datetime import datetime
+from typing import Any, Dict, Optional
+from uuid import UUID
+
 from pydantic import BaseModel
-from typing import Optional, Dict, Any
+
 
 class Endpoint(BaseModel):
     id: UUID
@@ -11,12 +13,14 @@ class Endpoint(BaseModel):
     created_at: datetime
     updated_at: datetime
 
+
 class RequestBody(BaseModel):
     id: UUID
     endpoint_id: UUID
     body: Dict[str, Any]
     created_at: datetime
     updated_at: datetime
+
 
 class ResponseSchema(BaseModel):
     id: UUID

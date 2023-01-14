@@ -1,7 +1,9 @@
-from uuid import UUID
-from typing import Dict, Any
 from datetime import datetime
+from typing import Any, Dict
+from uuid import UUID
+
 from pydantic import BaseModel
+
 
 class Request(BaseModel):
     id: UUID
