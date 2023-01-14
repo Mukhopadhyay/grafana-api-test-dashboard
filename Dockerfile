@@ -16,7 +16,11 @@ COPY ./src .
 
 # Copying the start.sh
 COPY ./start.sh .
+COPY ./grafana-init.sh .
+
+# Setting execution permission
 RUN chmod +x ./start.sh
+RUN chmod +x ./grafana-init.sh
 
 RUN ls -al
 

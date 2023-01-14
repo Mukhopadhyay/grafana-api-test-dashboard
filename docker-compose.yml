@@ -36,3 +36,24 @@ services:
     restart: always
     networks:
       - default
+
+  # The grafana dashboard
+  grafana-dashboard:
+    image: grafana/grafana:latest
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres
+    networks:
+      - default
+
+  # Initialize grafana inside the container
+  grafana-init:
+    build:
+      context: .
+    working_dir: /src
+    depends_on:
+      - grafana-dashboard
+    networks:
+      - default
+    command: ["sh", "grafana-init.sh"]

@@ -1,5 +1,14 @@
 # Grafana dashboard for API test data
 
+## TODO
+
+**2023-01-14 05:01:26**
+
++ [ ] Moving the FastAPI application inside `app` directory inside `src`
++ [ ] Write grafana initialization script
+  + [ ] Setting up data sources
+  + [ ] Basic panels (e.g., Introductory readme and stuff)
+
 ## Setting up the project (for Contributors)
 ```bash
 # Clone the project
