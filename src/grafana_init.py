@@ -4,7 +4,7 @@ import requests
 from typing import Dict, Any, Optional
 from schemas import grafana_http
 
-base = 'https://admin:admin@localhost:3000'
+base = 'http://admin:admin@localhost:3000'
 
 
 def get_data_sources() -> Dict[str, Any]:
@@ -21,7 +21,7 @@ def set_postgres_sources() -> Dict[str, Any]:
             password="grafana"
         )
     )
-    r = requests.post(f'{base}/api/datasources', json=model.__dict__)
+    r = requests.post(f'{base}/api/datasources', json=model.dict())
     return json.loads(r.text)
 
 
