@@ -1,6 +1,6 @@
 # Script for initializing grafana
 import json
-from typing import Any, Dict, Optional
+from typing import Any, Dict
 
 import requests
 
