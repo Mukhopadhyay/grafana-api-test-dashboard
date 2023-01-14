@@ -46,15 +46,14 @@ services:
       - postgres
     networks:
       - default
-    command: ["sh", "grafana-init.sh"]
 
   # # Initialize grafana inside the container
-  # grafana-init:
-  #   build:
-  #     context: .
-  #   working_dir: /src
-  #   depends_on:
-  #     - grafana-dashboard
-  #   networks:
-  #     - default
-  #   command: ["sh", "grafana-init.sh"]
+  grafana-init:
+    build:
+      context: .
+    working_dir: /src
+    depends_on:
+      - grafana-dashboard
+    networks:
+      - default
+    command: ["sh", "grafana-init.sh"]
