@@ -1,3 +1,4 @@
+*.ipynb
 notebooks/*.ipynb
 
 # Byte-compiled / optimized / DLL files
