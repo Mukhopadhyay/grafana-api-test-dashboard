@@ -1,6 +1,7 @@
 import json
 import requests
 from typing import Dict, Any
+from utils import http
 from configs import grafana_config, database_config
 from schemas import grafana_http as grafana_http_schemas
 
@@ -12,7 +13,7 @@ def get_data_source_url() -> str:
     url: str = f'{get_base_url()}{grafana_config.datasource.endpoint}'
     return url
 
-def set_postgres_source() -> Dict[str, Any]:
+async def set_postgres_source() -> Dict[str, Any]:
     grafana_ds = grafana_config.datasource
     model = grafana_http_schemas.DataSourceRequest(
         name=grafana_ds.name,
@@ -23,5 +24,7 @@ def set_postgres_source() -> Dict[str, Any]:
         basicAuthUser=grafana_config.def_username,
         secureJsonData=grafana_http_schemas.SecureJsonData(password=grafana_config.def_password),
     )
-    r = requests.post(get_data_source_url(), json=model.dict())
-    return json.loads(r.text)
+    r, _, _, status = await http.post_async(get_data_source_url(), data=model.dict())
+    if status != 200:
+        raise RuntimeError('Datasource could not be setup!')
+    return r

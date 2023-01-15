@@ -1,7 +1,8 @@
 """
 Project level ocnfigurations
 """
-from pydantic import BaseSettings, Field, Optional
+from typing import Optional
+from pydantic import BaseSettings, Field
 
 
 class DatabaseConfig(BaseSettings):

@@ -26,4 +26,5 @@ filterwarnings = [
 ]
 markers = [
     "schema      : Schema related tests",
+    "utils       : All utility methods"
 ]
