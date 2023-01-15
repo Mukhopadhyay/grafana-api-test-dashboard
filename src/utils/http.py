@@ -23,14 +23,14 @@ async def post_async(
 
         async with session.post(url, json=data) as response:
             json_data = await response.json()
-            end = time.time() - start
+            elapsed = time.time() - start
 
             content_length = get_content_length(response)
             if not content_length:
                 content_length = sys.getsizeof(json_data)
 
             return (
-                json_data, end, content_length, response.status
+                json_data, elapsed, content_length, response.status
             )
 
 
@@ -43,12 +43,12 @@ async def get_async(
 
         async with session.get(url) as response:
             json_data = await response.json()
-            end = time.time() - start
+            elapsed = time.time() - start
 
             content_length = get_content_length(response)
             if not content_length:
                 content_length = sys.getsizeof(json_data)
 
             return (
-                json_data, end, content_length, response.status
+                json_data, elapsed, content_length, response.status
             )

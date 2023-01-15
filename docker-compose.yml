@@ -47,7 +47,7 @@ services:
     networks:
       - default
 
-  # # Initialize grafana inside the container
+  # Initialize grafana inside the container
   grafana-init:
     build:
       context: .
@@ -58,3 +58,15 @@ services:
     networks:
       - default
     command: ["sh", "grafana-init.sh"]
+
+  # API scheduler
+  scheduler:
+    build:
+      context: .
+    working_dir: /src
+    depends_on:
+      - postgres
+      - grafana-fastapi-server
+    networks:
+      - default
+    command: ["sh", "scheduler.sh"]
