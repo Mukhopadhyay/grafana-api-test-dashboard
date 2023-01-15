@@ -21,7 +21,7 @@ async def post_async(
     async with aiohttp.ClientSession(headers=headers) as session:
         start = time.time()
 
-        async with session.post(url, data=data) as response:
+        async with session.post(url, json=data) as response:
             json_data = await response.json()
             end = time.time() - start
 

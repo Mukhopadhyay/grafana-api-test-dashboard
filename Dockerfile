@@ -1,6 +1,6 @@
 FROM python:3.10-slim
 
-# RUN apt update && apt -y --no-install-recommends install g++
+RUN apt update && apt -y --no-install-recommends install g++
 
 # disabling pyc generation
 ENV PYTHONDONTWRITEBYTECODE=1

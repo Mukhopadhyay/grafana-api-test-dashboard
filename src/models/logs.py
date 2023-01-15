@@ -2,7 +2,7 @@ from sqlalchemy import Column, ForeignKey, Integer, Numeric, String
 from sqlalchemy.dialects.postgresql import JSON
 from sqlalchemy_utils import UUIDType
 
-from src.models.base import Base, CreateMixin
+from models.base import Base, CreateMixin
 
 
 # TODO: Not used yet

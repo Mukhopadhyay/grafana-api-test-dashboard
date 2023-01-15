@@ -53,6 +53,7 @@ services:
       context: .
     working_dir: /src
     depends_on:
+      - grafana-fastapi-server
       - grafana-dashboard
     networks:
       - default
