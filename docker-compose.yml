@@ -5,8 +5,8 @@ services:
   postgres:
     image: postgres:latest
     container_name: db
-    environment:
-      - PGUSER=grafana
+    # environment:
+    #   - PGUSER=grafana
     env_file:
       - ./src/.env
     ports:
@@ -50,26 +50,14 @@ services:
     networks:
       - default
 
-  # Initialize grafana inside the container
-  # grafana-init:
-  #   build:
-  #     context: .
-  #   working_dir: /src
-  #   depends_on:
-  #     - grafana-fastapi-server
-  #     - grafana-dashboard
-  #   networks:
-  #     - default
-  #   command: ["sh", "grafana-init.sh"]
-
-  # # API scheduler
-  # scheduler:
-  #   build:
-  #     context: .
-  #   working_dir: /src
-  #   depends_on:
-  #     - postgres
-  #     - grafana-fastapi-server
-  #   networks:
-  #     - default
-  #   command: ["sh", "scheduler.sh"]
+  # Initialization & Scheduler
+  scheduler:
+    depends_on:
+      - grafana-fastapi-server
+    container_name: scheduler
+    build:
+      context: .
+    working_dir: /src
+    networks:
+      - default
+    command: ["sh", "start.sh"]

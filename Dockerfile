@@ -24,12 +24,8 @@ RUN chmod +x ./grafana-init.sh
 
 RUN ls -al
 
-# Starting the server
-RUN sh start.sh
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
-#, ">/dev/null", "2>&1"]
+# Running the initialization scripts
+# RUN sh start.sh
 
-# CMD ["sh", "start.sh"]
-# CMD ["gunicorn", "app:app", "--workers", "2", "--worker-class", "uvicorn.workers.UvicornWorkers", "--bind", "0.0.0.0:8000"]
-# CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000", "--worker-class", "uvicorn.workers.UvicornWorkers", "--daemon", "&&", "sh", "start.sh"]
-# CMD uvicorn app:app --port 8000 --host 0.0.0.0 && sh start.sh
+# Starting the server
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
