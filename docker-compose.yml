@@ -4,7 +4,7 @@ services:
   # Database (Postgres) service
   postgres:
     image: postgres:latest
-    container_name: grafana-dash-db
+    container_name: db
     environment:
       - PGUSER=grafana
     env_file:
@@ -21,52 +21,55 @@ services:
       - default
     restart: always
 
+  # The grafana dashboard
+  grafana-dashboard:
+    depends_on:
+      - postgres
+    image: grafana/grafana:latest
+    container_name: dashboard
+    ports:
+      - 3000:3000
+    networks:
+      - default
+
   # Python API service
   grafana-fastapi-server:
+    depends_on:
+      - postgres
+    container_name: api
     build:
       context: .
       dockerfile: Dockerfile
     working_dir: /src
-    depends_on:
-      - postgres
     # volumes:
     #   - ./src:/api
     ports:
       - 8000:8000
     restart: always
-    networks:
-      - default
-
-  # The grafana dashboard
-  grafana-dashboard:
-    image: grafana/grafana:latest
-    ports:
-      - 3000:3000
-    depends_on:
-      - postgres
+    # entrypoint: sh start.sh
     networks:
       - default
 
   # Initialize grafana inside the container
-  grafana-init:
-    build:
-      context: .
-    working_dir: /src
-    depends_on:
-      - grafana-fastapi-server
-      - grafana-dashboard
-    networks:
-      - default
-    command: ["sh", "grafana-init.sh"]
+  # grafana-init:
+  #   build:
+  #     context: .
+  #   working_dir: /src
+  #   depends_on:
+  #     - grafana-fastapi-server
+  #     - grafana-dashboard
+  #   networks:
+  #     - default
+  #   command: ["sh", "grafana-init.sh"]
 
-  # API scheduler
-  scheduler:
-    build:
-      context: .
-    working_dir: /src
-    depends_on:
-      - postgres
-      - grafana-fastapi-server
-    networks:
-      - default
-    command: ["sh", "scheduler.sh"]
+  # # API scheduler
+  # scheduler:
+  #   build:
+  #     context: .
+  #   working_dir: /src
+  #   depends_on:
+  #     - postgres
+  #     - grafana-fastapi-server
+  #   networks:
+  #     - default
+  #   command: ["sh", "scheduler.sh"]
