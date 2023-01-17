@@ -41,8 +41,8 @@ services:
       context: .
       dockerfile: Dockerfile
     working_dir: /src
-    # volumes:
-    #   - ./src:/api
+    volumes:
+      - ./src:/src
     ports:
       - 8000:8000
     restart: always

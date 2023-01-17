@@ -7,11 +7,6 @@ from database.utils import healthcheck_postgres
 router = APIRouter()
 
 
-@router.get("/")
-def healthcheck():
-    return {"msg": "healthcheck"}
-
-
 @router.get("/db")
 async def db_healthcheck():
     status = healthcheck_postgres()

@@ -4,7 +4,7 @@ from pydantic import BaseModel, SecretStr
 
 
 class SecureJsonData(BaseModel):
-    password: SecretStr
+    password: str
 
 
 class JsonData(BaseModel):
@@ -25,8 +25,23 @@ class DataSourceRequest(BaseModel):
     jsonData: Optional[JsonData] = JsonData()
     isDefault: Optional[bool] = True
 
+
 class CreateUser(BaseModel):
     name: str
     email: str
     login: str
-    password: SecretStr
+    password: str
+
+
+class OrgAddress(BaseModel):
+    address1: Optional[str] = ""
+    address2: Optional[str] = ""
+    city: Optional[str] = ""
+    zipCode: Optional[str] = ""
+    state: Optional[str] = ""
+    country: Optional[str] = ""
+
+
+class CreateOrg(BaseModel):
+    name: str
+    address: Optional[OrgAddress] = OrgAddress()

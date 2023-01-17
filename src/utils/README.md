@@ -1,3 +1,1 @@
-# `utils`
-
-The common utility methods used through out the project.
+The common utility / healper methods & classes used through out the project.

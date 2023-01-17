@@ -1,0 +1,31 @@
+{
+    "users": [
+        {
+            "name": "User1",
+            "email": "user.1@email.com",
+            "login": "user1",
+            "password": "password"
+        },
+        {
+            "name": "User2",
+            "email": "user.2@email.com",
+            "login": "user2",
+            "password": "password"
+        }
+    ],
+    "organizations": [
+        {
+            "name": "XYZ Organization",
+            "address": {
+                "address1": "",
+                "address2": "",
+                "city": "",
+                "zipCode": "",
+                "state": "",
+                "country": ""
+            },
+            "is_default": true,
+            "users": ["User1", "User2"]
+        }
+    ]
+}

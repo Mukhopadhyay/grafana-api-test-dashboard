@@ -18,7 +18,7 @@ class Database:
         self.__engine = create_engine(self.__db_uri)
 
     def get_db_uri(self) -> str:
-        return self.__db_uris
+        return self.__db_uri
 
     def get_session(self) -> Session:
         return Session(self.__engine, autocommit=False)
