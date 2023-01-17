@@ -1,7 +1,5 @@
-import json
-import requests
-from typing import Dict, Any
 from utils import http
+from typing import Dict, Any
 from configs import grafana_config, database_config
 from schemas import grafana_http as grafana_http_schemas
 
@@ -10,8 +8,24 @@ def get_base_url() -> str:
     return base
 
 def get_data_source_url() -> str:
-    url: str = f'{get_base_url()}{grafana_config.datasource.endpoint}'
+    url: str = f'{get_base_url()}{grafana_config.endpoints.datasource}'
     return url
+
+def get_users_url() -> str:
+    url: str = f'{get_base_url()}{grafana_config.endpoints.users}'
+    return url
+
+async def crete_user(name: str, email: str, login: str, password: str) -> Dict[str, Any]:
+    model = grafana_http_schemas.CreateUser(
+        name=name,
+        email=email,
+        login=login,
+        password=password
+    )
+    r, _, _, status = await http.post_async(get_users_url(), data=model.dict())
+    if status != 200:
+        raise RuntimeError("Unable to create user!")
+    return r
 
 async def set_postgres_source() -> Dict[str, Any]:
     grafana_ds = grafana_config.datasource

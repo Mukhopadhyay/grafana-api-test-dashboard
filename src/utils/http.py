@@ -13,9 +13,10 @@ def get_content_length(response: aiohttp.ClientResponse):
     else:
         return None
 
+
 async def post_async(
-    url, 
-    data: Dict[str, Any],
+    url,
+    data: Dict[Any, Any],
     headers: Optional[Dict[str, Any]] = None
 ) -> Tuple[Dict[Any, Any], float, int, int]:
     async with aiohttp.ClientSession(headers=headers) as session:
@@ -52,3 +53,11 @@ async def get_async(
             return (
                 json_data, elapsed, content_length, response.status
             )
+
+# from utils.utils import detailed_http
+
+# @detailed_http
+# async def get(url):
+#     async with aiohttp.ClientSession() as session:
+#         async with session.get(url) as client:
+#             return client

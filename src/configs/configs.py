@@ -2,7 +2,7 @@
 Project level ocnfigurations
 """
 from typing import Optional
-from pydantic import BaseSettings, Field
+from pydantic import BaseSettings
 
 
 class DatabaseConfig(BaseSettings):
@@ -17,9 +17,11 @@ class DatabaseConfig(BaseSettings):
 class Settings(BaseSettings):
     pass
 
+class GrafanaHTTPEndpoints(BaseSettings):
+    datasource: str = '/api/datasources'
+    users: str = '/api/admin/users'
 
 class GrafanaDataSource(BaseSettings):
-    endpoint: str = "/api/datasources"
     name: str
     type: Optional[str] = "postgres"
     db_host: str
@@ -31,3 +33,4 @@ class GrafanaConfig(BaseSettings):
     def_password: Optional[str] = 'admin'
     service_name: str = 'grafana-dashboard'
     datasource: GrafanaDataSource = GrafanaDataSource(_env_file=".env.grafana", _env_file_encoding="utf-8")
+    endpoints: GrafanaHTTPEndpoints = GrafanaHTTPEndpoints()

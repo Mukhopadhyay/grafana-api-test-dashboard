@@ -1,10 +1,10 @@
 from typing import Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, SecretStr
 
 
 class SecureJsonData(BaseModel):
-    password: str
+    password: SecretStr
 
 
 class JsonData(BaseModel):
@@ -24,3 +24,9 @@ class DataSourceRequest(BaseModel):
     secureJsonData: SecureJsonData
     jsonData: Optional[JsonData] = JsonData()
     isDefault: Optional[bool] = True
+
+class CreateUser(BaseModel):
+    name: str
+    email: str
+    login: str
+    password: SecretStr
