@@ -1,5 +1,8 @@
+import psycopg2
+
 from database.db import database
 from models import apis
+
 
 def insert_into_endpoint(data: apis.Endpoint):
     with database.get_session() as session:
@@ -14,11 +17,12 @@ def insert_into_endpoint(data: apis.Endpoint):
                 session.commit()
                 return {"msg": "Data insert"}
 
+
 def truncate_endpoint_tbl():
     with database.get_session() as session:
         with session.begin():
             try:
-                session.execute('TRUNCATE TABLE endpoint;')
+                session.execute("TRUNCATE TABLE endpoint;")
             except Exception as err:
                 print(err)
                 session.rollback()
@@ -26,3 +30,14 @@ def truncate_endpoint_tbl():
             else:
                 session.commit()
                 return {"msg": "Table truncated"}
+
+
+def healthcheck_postgres() -> bool:
+    try:
+        conn = psycopg2.connect(database.get_db_uri())
+        conn.close()
+    except psycopg2.OperationalError as op_err:
+        print(f"Connection failed: {op_err}")
+        return False
+    else:
+        return True
