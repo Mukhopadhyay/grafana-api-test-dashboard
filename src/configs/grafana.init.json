@@ -28,8 +28,6 @@
             {"user.a": "Viewer"},
             {"user.b": "Editor"},
             {"user.c": "Admin"}
-            // { "login": "user.a", "role": "Viewer" },
-            // { "login": "user.b", "role": "Viewer" }
         ]
     }
 }

@@ -15,14 +15,15 @@ def grafana_index():
 
 @router.post("/user")
 async def create_new_user(model: grafana_schemas.CreateUser):
-    try:
-        r = await grafana.create_user(model.name, model.email, model.login, model.password)
-    except exceptions.GrafanaHTTPError as graf_err:
-        return {"msg": str(err.message), "status": err.status_code, "response": err.data}
-    except Exception as err:
-        return {"msg": str(err)}
-    else:
-        return r
+    pass
+    # try:
+    #     r = await grafana.create_user(model.name, model.email, model.login, model.password)
+    # except exceptions.GrafanaHTTPError as graf_err:
+    #     return {"msg": str(err.message), "status": err.status_code, "response": err.data}
+    # except Exception as err:
+    #     return {"msg": str(err)}
+    # else:
+    #     return r
 
 
 @router.get("/datasources")

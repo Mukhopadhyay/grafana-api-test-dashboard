@@ -12,21 +12,18 @@ def get_base_url() -> str:
 
 def get_data_source_url() -> str:
     endpoint = "/api/datasources"
-    # url: str = f"{get_base_url()}{grafana_config.endpoints.datasource}"
     url: str = f"{get_base_url()}{endpoint}"
     return url
 
 
 def get_create_users_url() -> str:
     endpoint = "/api/admin/users"
-    # url: str = f"{get_base_url()}{grafana_config.endpoints.create_user}"
     url: str = f"{get_base_url()}{endpoint}"
     return url
 
 
 def get_organization_url() -> str:
     endpoint = "/api/org"
-    # url: str = f"{get_base_url()}{grafana_config.endpoints.organization}"
     url: str = f"{get_base_url()}{endpoint}"
     return url
 

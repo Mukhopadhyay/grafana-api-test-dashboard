@@ -108,10 +108,19 @@ class GrafanaInit:
             u_role = org.users.get(u['login'])
             if not u_role:
                 u_role = "Viewer"
+            if u['role'] != u_role:
+                asyncio.run(organization.update_user_role(self.org_id, u['userId'], u_role))
             else:
-                # TODO: Call the path API
-                # https://grafana.com/docs/grafana/latest/developers/http_api/org/#update-users-in-organization
-            if u['login'] in org.users
+                print(f"User: {u['login']} already has {u_role} in organization: {u['orgId']}")
+
+        # Checking if `organization.users `contains something that `users` doesnt
+        org_user_logins = [u['login'] for u in org_users]
+        for org_uname in list(org.users.keys()):
+            try:
+                assert org_uname in org_user_logins
+            except AssertionError:
+                print(f"User {org_uname} does not exist in this organization. Make sure the user detail is in 'users' object in grafana.init.json")
+
 
     def set_datasource(self) -> None:
         try:
@@ -120,6 +129,7 @@ class GrafanaInit:
             print(f"{str(graf_err.message)}\nstatus: {graf_err.status_code}\n{graf_err.data}")
         else:
             print(f"Datasource installed!")
+
 
     def initialize(self) -> None:
         self.create_users()
