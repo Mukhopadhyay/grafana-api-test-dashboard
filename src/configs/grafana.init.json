@@ -16,17 +16,20 @@
     "organization": {
         "name": "XYZ Organization",
         "address": {
-            "address1": "",
-            "address2": "",
-            "city": "",
+            "address1": "Address Line 1",
+            "address2": "Address Line 2",
+            "city": "New York City",
             "zipCode": "",
-            "state": "",
-            "country": ""
+            "state": "New York",
+            "country": "USA"
         },
         "is_default": true,
         "users": [
-            { "login": "user.a", "role": "Viewer" },
-            { "login": "user.b", "role": "Viewer" }
+            {"user.a": "Viewer"},
+            {"user.b": "Editor"},
+            {"user.c": "Admin"}
+            // { "login": "user.a", "role": "Viewer" },
+            // { "login": "user.b", "role": "Viewer" }
         ]
     }
 }
