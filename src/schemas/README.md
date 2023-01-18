@@ -1,3 +1,1 @@
-# `schemas`
-
-Contains the pydantic models
+Pydantic models for the project

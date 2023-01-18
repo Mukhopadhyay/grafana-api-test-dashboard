@@ -1,0 +1,61 @@
+from utils import http
+from typing import Dict, Any, Optional
+from errors.exceptions import GrafanaHTTPError
+from modules.grafana import utils as grafana_utils
+from schemas import grafana_http as grafana_http_schemas
+
+
+async def update_current_organization(org_name: str) -> Dict[str, Any]:
+    url = grafana_utils.get_organization_url()  # /api/org
+    data = {"name": org_name}
+    r, _, _, status = await http.put_async(url, data=data)
+    if status != 200:
+        raise GrafanaHTTPError(f"Unable to set default org: {org_name}", status_code=status, data=r)
+    return r
+
+
+async def delete_organization_by_id(org_id: int) -> Dict[str, Any]:
+    url = f"{grafana_utils.get_organization_url()}s/{int(org_id)}"  # /api/orgs/:org_id
+    r, _, _, status = await http.delete_async(url)
+    if status != 200:
+        raise GrafanaHTTPError(f"Unable to delete organization with id: {org_id}", status_code=status, data=r)
+    return r
+
+
+async def get_all_organization() -> Dict[str, Any]:
+    url = f"{grafana_utils.get_organization_url()}s"  # /api/orgs
+    r, _, _, status = await http.get_async(url)
+    if status != 200:
+        raise GrafanaHTTPError(f"Unable to fetch all organizations", status_code=status, data=r)
+    return r
+
+
+async def get_organization_by_name(org_name: str) -> Dict[str, Any]:
+    url = f"{grafana_utils.get_organization_url()}s/name/{org_name}"
+    r, _, _, status = await http.get_async(url)
+    if status != 200:
+        raise GrafanaHTTPError(f"Unable to fetch organization with name: {org_name}", status_code=status, data=r)
+    return r
+
+
+async def create_organization(name, addr1, addr2, city, zip, state, country) -> Dict[str, Any]:
+    url = grafana_utils.get_organization_url()  # /api/org
+    model = grafana_http_schemas.CreateOrg(
+        name,
+        address=grafana_http_schemas.OrgAddress(
+            address1=addr1, address2=addr2, city=city, zipCode=zip, state=state, country=country
+        ),
+    )
+    r, _, _, status = await http.post_async(url, data=model.dict())
+    if status != 200:
+        raise GrafanaHTTPError(f"Unable to create organization : {name}", status_code=status, data=r)
+    return r
+
+
+async def add_user_to_org(org_id: int, user_login: str, user_role: Optional[str] = "Viewer"):
+    url = f"{grafana_utils.get_organization_url()}s/{org_id}/users"
+    data = {"loginOrEmail": user_login, "role": user_role}
+    r, _, _, status = await http.post_async(url, data=data)
+    if status != 200:
+        raise GrafanaHTTPError(f"Unable to add user {user_role} to organization: {org_id}", status_code=status, data=r)
+    return r

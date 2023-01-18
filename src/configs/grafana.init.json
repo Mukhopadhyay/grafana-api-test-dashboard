@@ -1,31 +1,32 @@
 {
     "users": [
         {
-            "name": "User1",
-            "email": "user.1@email.com",
-            "login": "user1",
+            "name": "UserA",
+            "email": "user.a@email.com",
+            "login": "user.a",
             "password": "password"
         },
         {
-            "name": "User2",
-            "email": "user.2@email.com",
-            "login": "user2",
+            "name": "UserB",
+            "email": "user.b@email.com",
+            "login": "user.b",
             "password": "password"
         }
     ],
-    "organizations": [
-        {
-            "name": "XYZ Organization",
-            "address": {
-                "address1": "",
-                "address2": "",
-                "city": "",
-                "zipCode": "",
-                "state": "",
-                "country": ""
-            },
-            "is_default": true,
-            "users": ["User1", "User2"]
-        }
-    ]
+    "organizations": {
+        "name": "XYZ Organization",
+        "address": {
+            "address1": "",
+            "address2": "",
+            "city": "",
+            "zipCode": "",
+            "state": "",
+            "country": ""
+        },
+        "is_default": true,
+        "users": [
+            { "login": "user.a", "role": "Viewer" },
+            { "login": "user.b", "role": "Viewer" }
+        ]
+    }
 }
