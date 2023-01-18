@@ -39,9 +39,4 @@ def get_grafana_init_json(path: Optional[str] = "configs/grafana.init.json") -> 
 
 def validate_init(data: Dict[str, Any]) -> GrafanaInit:
     return GrafanaInit(**data)
-    # try:
-    #     _ = GrafanaInit(**data)
-    # except ValidationError:
-    #     return False
-    # else:
-    #     return True
+

@@ -4,6 +4,26 @@ from errors.exceptions import GrafanaHTTPError
 from modules.grafana import utils as grafana_utils
 from schemas import grafana_http as grafana_http_schemas
 
+async def get_users_in_organization(org_id: int) -> Dict[str, Any]:
+    url = f'{grafana_utils.get_organization_url()}s/{org_id}/users'
+    r, _, _, status = await http.get_async(url)  # /api/orgs/:org_id/users
+    if status != 200:
+        raise GrafanaHTTPError(f"Unable to get users in organization: {org_id}", status_code=status, data=r)
+    return r
+
+async def delete_user_from_organization(org_id: int, user_id: int) -> Dict[str, Any]:
+    url = f'{grafana_utils.get_organization_url()}s/{org_id}/users/{user_id}'  # /api/orgs/:orgId/users/:userId
+    r, _, _, status = await http.delete_async(url)
+    if status != 200:
+        raise GrafanaHTTPError(f"Unable to delete user: {user_id} from organization: {org_id}", status_code=status, data=r)
+    return r
+
+async def get_current_organization() -> Dict[str, Any]:
+    url = grafana_utils.get_organization_url()  # /api/org
+    r, _, _, status = await http.get_async(url)
+    if status != 200:
+        raise GrafanaHTTPError("Unable to fetch current organization", status_code=status, data=r)
+    return r
 
 async def update_current_organization(org_name: str) -> Dict[str, Any]:
     url = grafana_utils.get_organization_url()  # /api/org
@@ -39,12 +59,12 @@ async def get_organization_by_name(org_name: str) -> Dict[str, Any]:
 
 
 async def create_organization(name, addr1, addr2, city, zip, state, country) -> Dict[str, Any]:
-    url = grafana_utils.get_organization_url()  # /api/org
+    url = f'{grafana_utils.get_organization_url()}s'  # /api/orgs
     model = grafana_http_schemas.CreateOrg(
-        name,
+        name=name,
         address=grafana_http_schemas.OrgAddress(
             address1=addr1, address2=addr2, city=city, zipCode=zip, state=state, country=country
-        ),
+        )
     )
     r, _, _, status = await http.post_async(url, data=model.dict())
     if status != 200:
