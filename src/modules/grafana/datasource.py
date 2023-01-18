@@ -1,9 +1,10 @@
-from utils import http
-from typing import Dict, Any
+from typing import Any, Dict
+
+from configs import database_config, grafana_config
 from errors.exceptions import GrafanaHTTPError
 from modules.grafana import utils as grafana_utils
-from configs import database_config, grafana_config
 from schemas import grafana_http as grafana_http_schemas
+from utils import http
 
 
 async def set_postgres_source() -> Dict[str, Any]:
@@ -15,7 +16,7 @@ async def set_postgres_source() -> Dict[str, Any]:
         database=database_config.postgres_db,
         user=database_config.postgres_user,
         basicAuthUser=grafana_config.def_username,
-        secureJsonData=grafana_http_schemas.SecureJsonData(password=grafana_config.def_password),
+        secureJsonData=grafana_http_schemas.SecureJsonData(password=database_config.postgres_password),
     )
     r, _, _, status = await http.post_async(grafana_utils.get_data_source_url(), data=model.dict())
     if status != 200:

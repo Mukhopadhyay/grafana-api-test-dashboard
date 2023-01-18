@@ -23,6 +23,7 @@ class GrafanaHTTPEndpoints(BaseSettings):
     datasource: str = "/api/datasources"
     create_user: str = "/api/admin/users"
     organization: str = "/api/org"
+    dashboard: str = "/api/dashboards"
 
 
 class GrafanaDataSource(BaseSettings):

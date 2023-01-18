@@ -1,13 +1,14 @@
 import sys
 import time
+from typing import Any, Dict, Optional, Tuple
+
 import aiohttp
-from typing import Optional, Dict, Any, Tuple
 
 
 def get_content_length(response: aiohttp.ClientResponse):
     header_keys = [x.casefold() for x in list(response.headers.keys())]
-    if 'content-length' in header_keys:
-        idx = header_keys.index('content-length')
+    if "content-length" in header_keys:
+        idx = header_keys.index("content-length")
         len_key = list(response.headers.keys())[idx]
         return response.headers[len_key]
     else:
@@ -28,9 +29,7 @@ async def put_async(
             if not content_length:
                 content_length = sys.getsizeof(json_data)
 
-            return (
-                json_data, elapsed, content_length, response.status
-            )
+            return (json_data, elapsed, content_length, response.status)
 
 
 async def delete_async(
@@ -47,14 +46,11 @@ async def delete_async(
             if not content_length:
                 content_length = sys.getsizeof(json_data)
 
-            return (
-                json_data, elapsed, content_length, response.status
-            )
+            return (json_data, elapsed, content_length, response.status)
+
 
 async def post_async(
-    url,
-    data: Dict[Any, Any] = None,
-    headers: Optional[Dict[str, Any]] = None
+    url, data: Dict[Any, Any] = None, headers: Optional[Dict[str, Any]] = None
 ) -> Tuple[Dict[Any, Any], float, int, int]:
     async with aiohttp.ClientSession(headers=headers) as session:
         start = time.time()
@@ -67,15 +63,10 @@ async def post_async(
             if not content_length:
                 content_length = sys.getsizeof(json_data)
 
-            return (
-                json_data, elapsed, content_length, response.status
-            )
+            return (json_data, elapsed, content_length, response.status)
 
 
-async def get_async(
-    url,
-    headers: Optional[Dict[str, Any]] = None
-) -> Tuple[Dict[Any, Any], float, int, int]:
+async def get_async(url, headers: Optional[Dict[str, Any]] = None) -> Tuple[Dict[Any, Any], float, int, int]:
     async with aiohttp.ClientSession(headers=headers) as session:
         start = time.time()
 
@@ -87,9 +78,8 @@ async def get_async(
             if not content_length:
                 content_length = sys.getsizeof(json_data)
 
-            return (
-                json_data, elapsed, content_length, response.status
-            )
+            return (json_data, elapsed, content_length, response.status)
+
 
 async def patch_async(
     url, data: Dict[Any, Any], headers: Optional[Dict[str, Any]] = None
@@ -97,7 +87,7 @@ async def patch_async(
     async with aiohttp.ClientSession(headers=headers) as session:
         start = time.time()
 
-        async with session.patch(url, data=data) as response:
+        async with session.patch(url, json=data) as response:
             json_data = await response.json()
             elapsed = time.time() - start
 
@@ -105,9 +95,8 @@ async def patch_async(
             if not content_length:
                 content_length = sys.getsizeof(json_data)
 
-            return (
-                json_data, elapsed, content_length, response.status
-            )
+            return (json_data, elapsed, content_length, response.status)
+
 
 # from utils.utils import detailed_http
 
