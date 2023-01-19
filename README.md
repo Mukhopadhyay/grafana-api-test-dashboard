@@ -31,14 +31,21 @@ pre-commit install
 Temp table query:
 
 ```sql
-CREATE TABLE IF NOT EXISTS temp
-(
-    id uuid NOT NULL,
-  	ep_name character varying NOT NULL,
-    created_at timestamp with time zone NOT NULL,
+CREATE TABLE
+  public.endpoint (
+    id uuid NOT NULL DEFAULT uuid_generate_v4(),
+    created_at timestamp without time zone NOT NULL,
+    name character varying NOT NULL,
     url character varying NOT NULL,
     elapsed numeric NOT NULL,
+    version character varying NULL,
+    category character varying NOT NULL,
     status_code integer NOT NULL,
-    PRIMARY KEY (id)
-);
+    content_length integer NOT NULL
+  );
+
+ALTER TABLE
+  public.endpoint
+ADD
+  CONSTRAINT endpoint_pkey PRIMARY KEY (id)
 ```

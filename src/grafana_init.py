@@ -18,4 +18,3 @@ if __name__ == "__main__":
     grafana = GrafanaInit()
     grafana.validate()
     grafana.initialize()
-
