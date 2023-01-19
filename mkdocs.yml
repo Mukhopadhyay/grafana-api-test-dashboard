@@ -1,4 +1,4 @@
-site_name: API Test dashboard using Grafana
+site_name: Grafana API Test dashboard
 site_description: Template repository for creating dashboard using Grafana for API tests.
 
 plugins:

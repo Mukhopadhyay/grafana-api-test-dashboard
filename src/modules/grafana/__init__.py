@@ -147,7 +147,8 @@ class GrafanaInit:
 
     def create_dashboard(self) -> None:
         # Setting uid and version to empty string
-        self.dashboard_data["dashboard"]["uid"] = ""
+        self.dashboard_data["dashboard"]["id"] = None
+        self.dashboard_data["dashboard"]["uid"] = None
         self.dashboard_data["dashboard"]["version"] = 1
         try:
             asyncio.run(dashboard.create_dashboard(self.dashboard_data))

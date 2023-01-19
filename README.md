@@ -1,13 +1,17 @@
 # Grafana dashboard for API test data
 
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white) ![Grafana](https://img.shields.io/badge/grafana-%23F46800.svg?style=for-the-badge&logo=grafana&logoColor=white) ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white) ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
+
 ## TODO
 
 **2023-01-14 05:01:26**
 
 + [ ] Moving the FastAPI application inside `app` directory inside `src`
-+ [ ] Write grafana initialization script
-  + [ ] Setting up data sources
-  + [ ] Basic panels (e.g., Introductory readme and stuff)
++ [x] Write grafana initialization script
+  + [x] Setting up data sources
+  + [x] Basic panels (e.g., Introductory readme and stuff)
+  + [x] Installing a dashboard
++ [ ] Setting up the API call scheduler
 
 ## Setting up the project (for Contributors)
 ```bash
