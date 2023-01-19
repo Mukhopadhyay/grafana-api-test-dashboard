@@ -12,6 +12,10 @@
   + [x] Basic panels (e.g., Introductory readme and stuff)
   + [x] Installing a dashboard
 + [ ] Setting up the API call scheduler
++ [x] Write Base CRUD class
++ [ ] Optimizing the endpoint
++ [ ] One table just containing all endpoint informations
+
 
 ## Setting up the project (for Contributors)
 ```bash
