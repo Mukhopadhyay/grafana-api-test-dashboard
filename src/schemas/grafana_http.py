@@ -1,6 +1,5 @@
-from typing import Optional
-
-from pydantic import BaseModel, SecretStr
+from pydantic import BaseModel
+from typing import Optional, Literal, Dict, Any
 
 
 class SecureJsonData(BaseModel):
@@ -45,3 +44,15 @@ class OrgAddress(BaseModel):
 class CreateOrg(BaseModel):
     name: str
     address: Optional[OrgAddress] = OrgAddress()
+
+class ErrorResponse(BaseModel):
+    response: Dict[Any, Any]
+    status: int
+    message: str
+
+class UserRole(BaseModel):
+    role: Optional[Literal["Admin", "Editor", "Viewer"]] = "Viewer"
+
+class AddUserToOrg(BaseModel):
+    user_login: str
+    role: Optional[Literal["Admin", "Editor", "Viewer"]] = "Viewer"

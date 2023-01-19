@@ -42,17 +42,6 @@ class GrafanaInit:
 
         if org:
             try:
-                # org_resp = asyncio.run(
-                #     organization.create_organization(
-                #         org.name,
-                #         org.address.address1,
-                #         org.address.address1,
-                #         org.address.city,
-                #         org.address.zipCode,
-                #         org.address.state,
-                #         org.address.country,
-                #     )
-                # )
                 org_resp = asyncio.run(
                     organization.update_organization_details(
                         self.org_id,
@@ -72,40 +61,6 @@ class GrafanaInit:
                 # self.org_id = org_resp["orgId"]
                 self.create_org_response = org_resp
                 print(f"Updated organization: {org.name}")
-
-            # Select the default organization
-            # try:
-            #     # Fetch the current organization first
-            #     current_org = asyncio.run(organization.get_current_organization())
-            #     current_org_name = current_org.get('name')
-
-            #     if current_org_name == org.name:
-            #         print(f"Current organization is already set to {org.name}")
-            #     else:
-            #         _ = asyncio.run(organization.update_current_organization(org.name))
-
-            # except GrafanaHTTPError as graf_err:
-            #     print(f"{str(graf_err.message)}\nstatus: {graf_err.status_code}\n{graf_err.data}")
-
-            # else:
-            #     print("Set organization: {org.name} as default")
-
-            # The users will default to the current organization
-            # if self.org_id:
-            # if self.org_id == 1:
-            #     print("No organization created, adding users in 'Main Org.'")
-
-            # organization.get_users_in_organization(self.org_id)
-            # if org.users:
-            #     for user in org.users:
-            #         try:
-            #             _ = asyncio.run(organization.add_user_to_org(self.org_id, user.login, user.role))
-            #         except GrafanaHTTPError as graf_err:
-            #             print(f"{str(graf_err.message)}\nstatus: {graf_err.status_code}\n{graf_err.data}")
-            #         else:
-            #             print(f"User {user.login} is now a part of {self.org_id}")
-            # else:
-            #     print("No OrganizationID found, unable to add users")
         else:
             print("No organization detail found in grafana.init.json, Using 'Main Org.'")
 

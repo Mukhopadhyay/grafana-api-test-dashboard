@@ -81,6 +81,12 @@ async def get_all_organization() -> Dict[str, Any]:
         raise GrafanaHTTPError(f"Unable to fetch all organizations", status_code=status, data=r)
     return r
 
+async def get_organization_by_id(org_id: int) -> Dict[str, Any]:
+    url = f"{grafana_utils.get_organization_url()}s/{org_name}"
+    r, _, _, status = await http.get_async(url)
+    if status != 200:
+        raise GrafanaHTTPError(f"Unable to fetch organization with id: {org_id}", status_code=status, data=r)
+    return r
 
 async def get_organization_by_name(org_name: str) -> Dict[str, Any]:
     url = f"{grafana_utils.get_organization_url()}s/name/{org_name}"
