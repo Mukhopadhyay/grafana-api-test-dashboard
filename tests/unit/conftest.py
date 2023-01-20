@@ -2,13 +2,13 @@ import json
 
 from pytest import fixture
 
-from src.models import apis as orm_apis
+from src.models import response as orm_response
 from src.schemas.db import apis as pydantic_apis
 
 
 @fixture
 def endpoint_keys():
-    ep_orm = orm_apis.Endpoint()
+    ep_orm = orm_response.Response()
     ep_pyd = pydantic_apis.Endpoint
 
     pyd_attrs = list(json.loads(ep_pyd.schema_json())["properties"].keys())

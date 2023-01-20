@@ -1,10 +1,10 @@
 import psycopg2
 
 from database.db import database
-from models import apis
+from models import response
 
 
-def insert_into_endpoint(data: apis.Endpoint):
+def insert_into_endpoint(data: response.Response):
     with database.get_session() as session:
         with session.begin():
             try:

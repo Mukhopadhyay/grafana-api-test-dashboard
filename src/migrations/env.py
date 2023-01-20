@@ -13,10 +13,9 @@ DB_URI = PostgresDsn.build(
 )
 config.set_main_option("sqlalchemy.url", DB_URI)
 
-from models.apis import Endpoint
-
 # add your model's MetaData object here
 from models.base import Base
+from models.response import Response
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.

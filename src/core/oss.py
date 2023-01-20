@@ -4,7 +4,7 @@ This is where your test goes
 import asyncio
 
 from database import utils as db_utils
-from models.apis import Endpoint
+from models.response import Response
 from utils import http
 
 GET_URLS = (
@@ -19,7 +19,7 @@ def osrm_route():
     version = "v1"
     category = "GEO"
     (resp, elapsed, con_len, stat) = asyncio.run(http.get_async(url))
-    data = Endpoint(
+    data = Response(
         name=name, url=url, elapsed=elapsed, version=version, category="GEO", status_code=stat, content_length=con_len
     )
     r = db_utils.insert_into_endpoint(data)
