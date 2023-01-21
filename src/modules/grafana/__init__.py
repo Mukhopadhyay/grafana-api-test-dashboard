@@ -18,6 +18,7 @@ class GrafanaInit:
         self.dashboard_data = utils.get_dashboard_json(self.dash_path)
 
         self.org_id: int = 1
+        self.datasource_uid: str = None  # This will be populated after setting the datasource
 
         self.model: GrafanaInitSchema = None
 
@@ -94,10 +95,11 @@ class GrafanaInit:
 
     def set_datasource(self) -> None:
         try:
-            asyncio.run(datasource.set_postgres_source())
+            r = asyncio.run(datasource.set_postgres_source())
         except GrafanaHTTPError as graf_err:
             print(f"{str(graf_err.message)}\nstatus: {graf_err.status_code}\n{graf_err.data}")
         else:
+            self.datasource_uid = r["datasource"]["uid"]
             print(f"Datasource installed!")
 
     def create_dashboard(self) -> None:
@@ -105,6 +107,12 @@ class GrafanaInit:
         self.dashboard_data["dashboard"]["id"] = None
         self.dashboard_data["dashboard"]["uid"] = None
         self.dashboard_data["dashboard"]["version"] = 1
+
+        # Setting the new datasource's uid
+        for panel in self.dashboard_data["dashboard"].get("panels", []):
+            if panel.get("datasource", {}).get("type") == "postgres":
+                panel["datasource"]["uid"] = self.datasource_uid
+
         try:
             asyncio.run(dashboard.create_dashboard(self.dashboard_data))
         except GrafanaHTTPError as graf_err:

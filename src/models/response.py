@@ -1,7 +1,12 @@
-from sqlalchemy import Column, Integer, Numeric, String
+"""
+Not being used
+"""
+
+from sqlalchemy import Column, ForeignKey, Integer, Numeric, String
+from sqlalchemy.orm import relationship
 from sqlalchemy_utils import UUIDType
 
-from models.base import Base, CreateMixin, ForeignKey
+from models.base import Base, CreateMixin
 
 # https://docs.sqlalchemy.org/en/14/orm/basic_relationships.html
 
@@ -15,3 +20,5 @@ class Response(Base, CreateMixin):
     category = Column(String, nullable=False)
     status_code = Column(Integer, nullable=False)
     content_length = Column(Integer, nullable=False)
+    # Relationships
+    api = relationship("api", back_populates="responses")
