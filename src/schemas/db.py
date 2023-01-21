@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Literal
 from uuid import UUID
 
 from pydantic import BaseModel
@@ -11,7 +11,7 @@ class BaseIdModel(BaseModel):
 class Api(BaseModel):
     name: str
     url: str
-    method: str
+    method: Literal['GET', 'POST', 'PUT', 'DELETE', 'PATCH']
     version: Optional[str]
     category: Optional[str]
     description: Optional[str]

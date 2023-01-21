@@ -24,7 +24,7 @@ class Database:
     def get_session(self) -> Session:
         return Session(self.__engine, autocommit=False)
 
-    def get_db(self) -> str:
+    def get_db(self) -> Session:
         db = self.SessionLocal()
         return db
 

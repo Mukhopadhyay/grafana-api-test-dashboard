@@ -2,8 +2,13 @@ import sys
 from functools import wraps
 from time import time
 from typing import Any, Callable, Dict, Tuple
+from database.db import database
+from database.crud.base import CRUDBase
+from models.models import Response, Api
 
 import aiohttp
+
+
 
 
 def get_content_length(response: aiohttp.ClientResponse):
@@ -34,3 +39,5 @@ def detailed_http(function: Callable[[str, Dict[Any, Any], None], aiohttp.Client
             content_length = sys.getsizeof(data)
 
         return (data, tt, content_length, client.status)
+
+
