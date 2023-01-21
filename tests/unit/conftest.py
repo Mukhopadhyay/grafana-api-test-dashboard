@@ -3,7 +3,7 @@ import json
 from pytest import fixture
 
 from src.models import response as orm_response
-from src.schemas.db import apis as pydantic_apis
+from src.schemas import db as pydantic_apis
 
 
 @fixture

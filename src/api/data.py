@@ -7,7 +7,7 @@ from database import utils
 from database.crud.base import CRUDBase
 from database.db import database
 from models import response
-from schemas.db import apis as api_schemas
+from schemas import db as db_schemas
 
 router = APIRouter()
 
@@ -18,7 +18,7 @@ async def index():
 
 
 @router.post("/endpoint")
-async def insert_endpoint_result(endpoint: api_schemas.Endpoint):
+async def insert_endpoint_result(endpoint: db_schemas.Endpoint):
     data = response.Response(**endpoint.dict())
     return utils.insert_into_endpoint(data)
 
@@ -43,7 +43,7 @@ def delete(id: str):
 
 
 @router.put("/{id}")
-def update(id: str, model: api_schemas.Endpoint):
+def update(id: str, model: db_schemas.Endpoint):
     base = CRUDBase(response.Response)
     db_obj = base.get(database.get_db(), id=UUID(id))
     if not db_obj:

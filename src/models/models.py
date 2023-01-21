@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, Numeric, String
+from sqlalchemy import Column, ForeignKey, Integer, Numeric, String, Boolean
 from sqlalchemy.orm import relationship
 from sqlalchemy_utils import UUIDType
 
@@ -12,6 +12,7 @@ class Api(Base, CreateMixin, UpdateMixin):
     version = Column(String, nullable=True)
     category = Column(String, nullable=True)
     description = Column(String, nullable=True)
+    status = Column(Boolean, nullable=False, default=True)
     # Relationships
     responses = relationship("Response")
 
@@ -23,3 +24,4 @@ class Response(Base, CreateMixin):
     content_length = Column(Integer, nullable=False)
     # Relationships
     api = relationship("Api", back_populates="responses")
+
