@@ -1,8 +1,8 @@
 import sys
 import time
+import aiohttp
 from typing import Any, Dict, Optional, Tuple
 
-import aiohttp
 
 
 def get_content_length(response: aiohttp.ClientResponse):
@@ -96,12 +96,3 @@ async def patch_async(
                 content_length = sys.getsizeof(json_data)
 
             return (json_data, elapsed, content_length, response.status)
-
-
-# from utils.utils import detailed_http
-
-# @detailed_http
-# async def get(url):
-#     async with aiohttp.ClientSession() as session:
-#         async with session.get(url) as client:
-#             return client

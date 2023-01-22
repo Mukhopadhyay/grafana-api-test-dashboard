@@ -1,12 +1,9 @@
 version: '3.9'
-# name: grafana-api-test-dashboard
 services:
   # Database (Postgres) service
   postgres:
     image: postgres:latest
     container_name: db
-    # environment:
-    #   - PGUSER=grafana
     env_file:
       - ./src/.env
     ports:
@@ -46,7 +43,6 @@ services:
     ports:
       - 8000:8000
     restart: always
-    # entrypoint: sh start.sh
     networks:
       - default
 
