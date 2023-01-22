@@ -16,7 +16,7 @@ class Database:
             path=f"/{database_config.postgres_db}",
         )
         self.__engine = create_engine(self.__db_uri, pool_pre_ping=True)
-        self.SessionLocal = sessionmaker(self.__engine, autocommit=False, autoflush=False)
+        self.SessionMaker = sessionmaker(self.__engine, autocommit=False, autoflush=False)
 
     def get_db_uri(self) -> str:
         return self.__db_uri
@@ -25,7 +25,7 @@ class Database:
         return Session(self.__engine, autocommit=False)
 
     def get_db(self) -> Session:
-        db = self.SessionLocal()
+        db = self.SessionMaker()
         return db
 
 

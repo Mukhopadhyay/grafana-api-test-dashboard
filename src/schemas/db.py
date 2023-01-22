@@ -1,12 +1,7 @@
-from datetime import datetime
-from typing import Any, Dict, Literal, Optional
+from typing import Literal, Optional
 from uuid import UUID
 
 from pydantic import BaseModel
-
-
-class BaseIdModel(BaseModel):
-    Id: UUID
 
 
 class Api(BaseModel):
@@ -30,13 +25,6 @@ class Response(BaseModel):
     content_length: int
 
 
-# class Endpoint(BaseModel):
-#     # id: UUID
-#     name: str
-#     url: str
-#     elapsed: float
-#     version: Optional[str] = None
-#     category: str
-#     status_code: int
-#     content_length: int
-# created_at: datetime
+class Errors(BaseModel):
+    message: str
+    api_id: UUID

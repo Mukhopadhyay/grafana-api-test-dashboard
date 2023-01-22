@@ -28,3 +28,8 @@ class Response(Base, CreateMixin):
     cookies = Column(String, nullable=True)
     # Relationships
     api = relationship("Api", back_populates="responses")
+
+
+class Errors(Base, CreateMixin):
+    message = Column(String, nullable=False)
+    api_id: Column(String, ForeignKey("api.id", onupdate="CASCADE"))
