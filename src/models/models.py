@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, Numeric, String, Boolean
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, Numeric, String
 from sqlalchemy.orm import relationship
 from sqlalchemy_utils import UUIDType
 
@@ -22,6 +22,9 @@ class Response(Base, CreateMixin):
     elapsed = Column(Numeric, nullable=False)
     status_code = Column(Integer, nullable=False)
     content_length = Column(Integer, nullable=False)
+    headers = Column(String, nullable=True)
+    request = Column(String, nullable=True)
+    response = Column(String, nullable=True)
+    cookies = Column(String, nullable=True)
     # Relationships
     api = relationship("Api", back_populates="responses")
-

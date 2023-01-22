@@ -5,6 +5,8 @@ FROM python:3.10-slim
 # disabling pyc generation
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
+# Setting timezone
+ENV TZ=Asia/Kolkata
 
 COPY ./requirements.txt /
 RUN pip3 install -r requirements.txt
