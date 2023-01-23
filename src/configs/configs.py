@@ -24,6 +24,7 @@ class GrafanaHTTPEndpoints(BaseSettings):
     create_user: str = "/api/admin/users"
     organization: str = "/api/org"
     dashboard: str = "/api/dashboards"
+    folder: str = "/api/folders"
 
 
 class GrafanaDataSource(BaseSettings):

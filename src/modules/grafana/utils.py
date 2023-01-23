@@ -36,6 +36,12 @@ def get_dashboard_url() -> str:
     return url
 
 
+def get_folder_url() -> str:
+    endpoint = "/api/folders"
+    url: str = f"{get_base_url()}{endpoint}"
+    return url
+
+
 # TODO: Make one read json function
 def get_grafana_init_json(path: Optional[str] = "configs/grafana.init.json") -> Dict[Any, Any]:
     with open(path, "r") as f:
@@ -43,7 +49,7 @@ def get_grafana_init_json(path: Optional[str] = "configs/grafana.init.json") -> 
     return ginit
 
 
-def get_dashboard_json(path: str):
+def get_dashboard_json(path: str) -> Dict[Any, Any]:
     with open(path, "r") as f:
         dash = json.load(f)
     return dash

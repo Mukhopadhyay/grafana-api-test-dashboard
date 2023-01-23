@@ -30,7 +30,7 @@
             "user.c": "Admin"
         }
     },
-    "dashboard": {
+    "dashboards": {
         "Production": "production-dashboard.json",
         "Development": "development-dashboard.json"
     }

@@ -26,3 +26,4 @@ class GrafanaInitOrg(BaseModel):
 class GrafanaInit(BaseModel):
     users: List[GrafanaInitUsers]
     organization: GrafanaInitOrg
+    dashboards: Dict[str, str]

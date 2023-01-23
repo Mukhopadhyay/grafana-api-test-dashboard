@@ -2,7 +2,7 @@ import asyncio
 from typing import List
 
 from errors.exceptions import GrafanaHTTPError
-from modules.grafana import dashboard, datasource, organization, users, utils
+from modules.grafana import dashboard, datasource, folder, organization, users, utils
 from schemas.grafana_init import GrafanaInit as GrafanaInitSchema
 
 GRAFANA_INIT_JSON = "configs/grafana.init.json"
@@ -102,30 +102,37 @@ class GrafanaInit:
             self.datasource_uid = r["datasource"]["uid"]
             print(f"Datasource installed!")
 
-    def create_folders(self) -> None:
-        # Folder creation code goes here
-        pass
+    # def create_folders(self, title: str) -> None:
+    #     # Folder creation code goes here
+    #     pass
 
     def create_dashboard(self) -> None:
-        # Fetch the dashboard json dynamically
-        utils.get_dashboard_json(self.dash_path)
+        for folder_name, dashboard_fname in self.init_data.dashboards.items():
+            fol_response = asyncio.run(folder.create_folder(folder_name))
+            folder_uid = fol_response.get("uid", "")
+            print("UID for created folder:", folder_uid)
 
-        # Setting uid and version to empty string
-        self.dashboard_data["dashboard"]["id"] = None
-        self.dashboard_data["dashboard"]["uid"] = None
-        self.dashboard_data["dashboard"]["version"] = 1
+            # Fetch the dashboard json dynamically
+            dashboard_data = utils.get_dashboard_json("configs/{dashboard_fname}")
 
-        # Setting the new datasource's uid
-        for panel in self.dashboard_data["dashboard"].get("panels", []):
-            if panel.get("datasource", {}).get("type") == "postgres":
-                panel["datasource"]["uid"] = self.datasource_uid
+            # Setting uid and version to empty string
+            dashboard_data["dashboard"]["id"] = None
+            dashboard_data["dashboard"]["uid"] = None
+            dashboard_data["dashboard"]["version"] = 1
+            dashboard_data["meta"]["folderUid"] = folder_uid
+            dashboard_data["meta"]["folderTitle"] = folder_name
 
-        try:
-            asyncio.run(dashboard.create_dashboard(self.dashboard_data))
-        except GrafanaHTTPError as graf_err:
-            print(f"{str(graf_err.message)}\nstatus: {graf_err.status_code}\n{graf_err.data}")
-        else:
-            print(f"Dashboard installed!")
+            # Setting the new datasource's uid
+            for panel in dashboard_data["dashboard"].get("panels", []):
+                if panel.get("datasource", {}).get("type") == "postgres":
+                    panel["datasource"]["uid"] = self.datasource_uid
+
+            try:
+                asyncio.run(dashboard.create_dashboard(dashboard_data))
+            except GrafanaHTTPError as graf_err:
+                print(f"{str(graf_err.message)}\nstatus: {graf_err.status_code}\n{graf_err.data}")
+            else:
+                print(f"Dashboard installed!")
 
     def initialize(self) -> None:
         self.create_users()
