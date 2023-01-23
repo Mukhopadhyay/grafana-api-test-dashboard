@@ -15,7 +15,7 @@ class GrafanaInit:
         self.dash_path = DASHBOARD_JSON
 
         self.init_data = utils.get_grafana_init_json(self.init_path)
-        self.dashboard_data = utils.get_dashboard_json(self.dash_path)
+        # self.dashboard_data = utils.get_dashboard_json(self.dash_path)
 
         self.org_id: int = 1
         self.datasource_uid: str = None  # This will be populated after setting the datasource
@@ -102,7 +102,14 @@ class GrafanaInit:
             self.datasource_uid = r["datasource"]["uid"]
             print(f"Datasource installed!")
 
+    def create_folders(self) -> None:
+        # Folder creation code goes here
+        pass
+
     def create_dashboard(self) -> None:
+        # Fetch the dashboard json dynamically
+        utils.get_dashboard_json(self.dash_path)
+
         # Setting uid and version to empty string
         self.dashboard_data["dashboard"]["id"] = None
         self.dashboard_data["dashboard"]["uid"] = None

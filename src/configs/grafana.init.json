@@ -29,5 +29,9 @@
             "user.b": "Editor",
             "user.c": "Admin"
         }
+    },
+    "dashboard": {
+        "Production": "production-dashboard.json",
+        "Development": "development-dashboard.json"
     }
 }

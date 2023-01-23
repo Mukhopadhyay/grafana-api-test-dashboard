@@ -6,14 +6,11 @@ from sqlalchemy.orm import Session
 
 from api.deps import get_db
 from database.crud.api import ApiCRUD
-
 from database.crud.response import ResponseCRUD
-# from database.db import database
 from models import models
 from schemas import db as db_schemas
 
 router = APIRouter()
-
 
 
 @router.get("/apis")
@@ -39,25 +36,27 @@ async def get_response_by_api_id(api_id: str, session: Session = Depends(get_db)
         return data
 
 
-@router.get('/response/{api_name}')
-async def get_response_by_api_name(api_name: str, session: Session=Depends(get_db)):
+@router.get("/response/{api_name}")
+async def get_response_by_api_name(api_name: str, session: Session = Depends(get_db)):
     crud = ResponseCRUD(models.Response)
     try:
         data = crud.get_by_api_name(session, api_name)
     except Exception as err:
-        return {'err': str(err)}
+        return {"err": str(err)}
     else:
         return data
 
-@router.post('/response')
-async def post_response_schema(body: db_schemas.Response, session: Session=Depends(get_db)):
+
+@router.post("/response")
+async def post_response_schema(body: db_schemas.Response, session: Session = Depends(get_db)):
     crud = ResponseCRUD(models.Response)
     try:
         data = crud.create(session, obj_in=models.Response(**body.dict()))
     except Exception as err:
-        return {'err': str(err)}
+        return {"err": str(err)}
     else:
         return data
+
 
 # @router.get("/")
 # async def index():
