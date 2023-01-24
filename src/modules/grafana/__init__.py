@@ -107,20 +107,26 @@ class GrafanaInit:
     #     pass
 
     def create_dashboard(self) -> None:
-        for folder_name, dashboard_fname in self.init_data.dashboards.items():
-            fol_response = asyncio.run(folder.create_folder(folder_name))
-            folder_uid = fol_response.get("uid", "")
-            print("UID for created folder:", folder_uid)
-
+        for folder_name, dashboard_fname in self.init_data["dashboards"].items():
             # Fetch the dashboard json dynamically
-            dashboard_data = utils.get_dashboard_json("configs/{dashboard_fname}")
+            print(f"Dashboard filename: {dashboard_fname}")
+            dashboard_data = utils.get_dashboard_json(f"configs/{dashboard_fname}")
+
+            try:
+                fol_response = asyncio.run(folder.create_folder(folder_name))
+                folder_uid = fol_response.get("uid", "")
+            except GrafanaHTTPError as graf_err:
+                print(f"{str(graf_err.message)}\nstatus: {graf_err.status_code}\n{graf_err.data}")
+            else:
+                print("UID for created folder:", folder_uid)
+                print(f"Setting folderUid: {folder_uid}; folderTitle: {folder_name}")
+                dashboard_data["meta"]["folderUid"] = folder_uid
+                dashboard_data["meta"]["folderTitle"] = folder_name
 
             # Setting uid and version to empty string
             dashboard_data["dashboard"]["id"] = None
             dashboard_data["dashboard"]["uid"] = None
             dashboard_data["dashboard"]["version"] = 1
-            dashboard_data["meta"]["folderUid"] = folder_uid
-            dashboard_data["meta"]["folderTitle"] = folder_name
 
             # Setting the new datasource's uid
             for panel in dashboard_data["dashboard"].get("panels", []):

@@ -27,4 +27,4 @@ RUN chmod +x ./grafana-init.sh
 RUN ls -al
 
 # Starting the server
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--reload"]

@@ -39,7 +39,7 @@ services:
       dockerfile: Dockerfile
     working_dir: /src
     volumes:
-      - ./src:/src
+      - ./src:/src/
     ports:
       - 8000:8000
     restart: always

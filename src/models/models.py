@@ -1,7 +1,8 @@
-from sqlalchemy_utils import UUIDType
-from sqlalchemy.orm import relationship
-from models.base import Base, CreateMixin, UpdateMixin
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, Numeric, String
+from sqlalchemy.orm import relationship
+from sqlalchemy_utils import UUIDType
+
+from models.base import Base, CreateMixin, UpdateMixin
 
 
 class Api(Base, CreateMixin, UpdateMixin):
@@ -31,7 +32,7 @@ class Response(Base, CreateMixin):
 
 
 class Errors(Base, CreateMixin):
+    api_id = Column(UUIDType, ForeignKey("api.id", onupdate="CASCADE"))
     message = Column(String, nullable=False)
-    api_id: Column(String, ForeignKey("api.id", onupdate="CASCADE"))
     # Relationships
-    api = relationship("Api", back_populates="responses")
+    api = relationship("Api", back_populates="errors")
