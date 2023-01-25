@@ -120,10 +120,13 @@ class GrafanaInit:
             else:
                 print("UID for created folder:", folder_uid)
                 print(f"Setting folderUid: {folder_uid}; folderTitle: {folder_name}")
-                dashboard_data["meta"]["folderId"] = idx
-                dashboard_data["meta"]["folderUid"] = folder_uid
-                dashboard_data["meta"]["folderTitle"] = folder_name
-                dashboard_data["meta"]["isFolder"] = True
+                # dashboard_data["meta"]["folderId"] = idx
+                # dashboard_data["meta"]["folderUid"] = folder_uid
+                # dashboard_data["meta"]["folderTitle"] = folder_name
+                # dashboard_data["folderId"] = idx
+                dashboard_data["folderUid"] = folder_uid
+                dashboard_data["folderTitle"] = folder_name
+                # dashboard_data["meta"]["isFolder"] = True
 
             # Setting uid and version to empty string
             dashboard_data["dashboard"]["id"] = None
