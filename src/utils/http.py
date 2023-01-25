@@ -50,7 +50,7 @@ async def delete_async(
 
 
 async def post_async(
-    url, data: Dict[Any, Any] = None, headers: Optional[Dict[str, Any]] = None
+    url: str, data: Dict[Any, Any] = None, headers: Optional[Dict[str, Any]] = None
 ) -> Tuple[Dict[Any, Any], float, int, int]:
     async with aiohttp.ClientSession(headers=headers) as session:
         start = time.time()

@@ -102,12 +102,8 @@ class GrafanaInit:
             self.datasource_uid = r["datasource"]["uid"]
             print(f"Datasource installed!")
 
-    # def create_folders(self, title: str) -> None:
-    #     # Folder creation code goes here
-    #     pass
-
     def create_dashboard(self) -> None:
-        for idx, (folder_name, dashboard_fname) in enumerate(self.init_data["dashboards"].items(), start=1):
+        for folder_name, dashboard_fname in self.init_data["dashboards"].items():
             # Fetch the dashboard json dynamically
             print(f"Dashboard filename: {dashboard_fname}")
             dashboard_data = utils.get_dashboard_json(f"configs/{dashboard_fname}")
@@ -120,13 +116,8 @@ class GrafanaInit:
             else:
                 print("UID for created folder:", folder_uid)
                 print(f"Setting folderUid: {folder_uid}; folderTitle: {folder_name}")
-                # dashboard_data["meta"]["folderId"] = idx
-                # dashboard_data["meta"]["folderUid"] = folder_uid
-                # dashboard_data["meta"]["folderTitle"] = folder_name
-                # dashboard_data["folderId"] = idx
                 dashboard_data["folderUid"] = folder_uid
                 dashboard_data["folderTitle"] = folder_name
-                # dashboard_data["meta"]["isFolder"] = True
 
             # Setting uid and version to empty string
             dashboard_data["dashboard"]["id"] = None
