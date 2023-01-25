@@ -107,7 +107,7 @@ class GrafanaInit:
     #     pass
 
     def create_dashboard(self) -> None:
-        for folder_name, dashboard_fname in self.init_data["dashboards"].items():
+        for idx, (folder_name, dashboard_fname) in enumerate(self.init_data["dashboards"].items(), start=1):
             # Fetch the dashboard json dynamically
             print(f"Dashboard filename: {dashboard_fname}")
             dashboard_data = utils.get_dashboard_json(f"configs/{dashboard_fname}")
@@ -120,13 +120,16 @@ class GrafanaInit:
             else:
                 print("UID for created folder:", folder_uid)
                 print(f"Setting folderUid: {folder_uid}; folderTitle: {folder_name}")
+                dashboard_data["meta"]["folderId"] = idx
                 dashboard_data["meta"]["folderUid"] = folder_uid
                 dashboard_data["meta"]["folderTitle"] = folder_name
+                dashboard_data["meta"]["isFolder"] = True
 
             # Setting uid and version to empty string
             dashboard_data["dashboard"]["id"] = None
             dashboard_data["dashboard"]["uid"] = None
             dashboard_data["dashboard"]["version"] = 1
+            dashboard_data["dashboard"]["title"] = f"{folder_name} | API Test Dashboard"
 
             # Setting the new datasource's uid
             for panel in dashboard_data["dashboard"].get("panels", []):
