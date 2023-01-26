@@ -45,6 +45,10 @@ def save_response(
                 elapsed=elapsed,
                 status_code=status,
                 content_length=length,
+                headers=headers,
+                request=request,
+                response=response,
+                cookies=cookies
             ),
         )
     else:
