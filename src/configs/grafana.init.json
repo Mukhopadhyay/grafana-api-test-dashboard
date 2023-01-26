@@ -26,8 +26,7 @@
         "is_default": true,
         "users": {
             "user.a": "Viewer",
-            "user.b": "Editor",
-            "user.c": "Admin"
+            "user.b": "Editor"
         }
     },
     "dashboards": {

@@ -1,15 +1,16 @@
 import json
 from typing import Any, Dict
 
-# from configs import database_config, grafana_config
 from configs import grafana_config
 from schemas.grafana_init import GrafanaInit
 
-# from pydantic import ValidationError
-
 
 def get_base_url() -> str:
-    base: str = f"http://{grafana_config.def_username}:{grafana_config.def_password}@{grafana_config.service_name}:{grafana_config.def_port}"
+    base: str = (
+        f"http://{grafana_config.def_username}"
+        f":{grafana_config.def_password}@"
+        f"{grafana_config.service_name}:{grafana_config.def_port}"
+    )
     return base
 
 
@@ -44,16 +45,16 @@ def get_folder_url() -> str:
 
 
 # TODO: Make one read json function
-def get_grafana_init_json(path: str) -> Dict[Any, Any]:
-    with open(path, "r") as f:
-        ginit = json.load(f)
-    return ginit
+# def get_grafana_init_json(path: str) -> Dict[Any, Any]:
+#     with open(path, "r") as f:
+#         ginit = json.load(f)
+#     return ginit
 
 
-def get_dashboard_json(path: str) -> Dict[Any, Any]:
-    with open(path, "r") as f:
-        dash = json.load(f)
-    return dash
+# def get_dashboard_json(path: str) -> Dict[Any, Any]:
+#     with open(path, "r") as f:
+#         dash = json.load(f)
+#     return dash
 
 
 def validate_init(data: Dict[str, Any]) -> GrafanaInit:

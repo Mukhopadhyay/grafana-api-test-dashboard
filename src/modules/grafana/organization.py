@@ -1,5 +1,4 @@
 from typing import Any, Dict, Optional
-
 from errors.exceptions import GrafanaHTTPError
 from modules.grafana import utils as grafana_utils
 from schemas import grafana_http as grafana_http_schemas
@@ -101,7 +100,7 @@ async def get_organization_by_name(org_name: str) -> Dict[str, Any]:
 async def create_organization(
     name: str, addr1: str, addr2: str, city: str, zip: str, state: str, country: str
 ) -> Dict[str, Any]:
-    url = f"{grafana_utils.get_organization_url()}s"  # /api/orgs
+    url = f"{grafana_utils.get_organization_url()}s"
     model = grafana_http_schemas.CreateOrg(
         name=name,
         address=grafana_http_schemas.OrgAddress(
@@ -114,7 +113,7 @@ async def create_organization(
     return r
 
 
-async def add_user_to_org(org_id: int, user_login: str, user_role: Optional[str] = "Viewer"):
+async def add_user_to_org(org_id: int, user_login: str, user_role: Optional[str] = "Viewer") -> Dict[Any, Any]:
     url = f"{grafana_utils.get_organization_url()}s/{org_id}/users"
     data = {"loginOrEmail": user_login, "role": user_role}
     r, _, _, status = await post_async(url, data=data)

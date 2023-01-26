@@ -1,9 +1,9 @@
 import asyncio
 from typing import List
-
+from utils.io import read_json
 from errors.exceptions import GrafanaHTTPError
-from modules.grafana import dashboard, datasource, folder, organization, users, utils
 from schemas.grafana_init import GrafanaInit as GrafanaInitSchema
+from modules.grafana import dashboard, datasource, folder, organization, users, utils
 
 GRAFANA_INIT_JSON = "configs/grafana.init.json"
 DASHBOARD_JSON = "configs/dashboard.json"
@@ -14,7 +14,8 @@ class GrafanaInit:
         self.init_path = GRAFANA_INIT_JSON
         self.dash_path = DASHBOARD_JSON
 
-        self.init_data = utils.get_grafana_init_json(self.init_path)
+        self.init_data = read_json(self.init_path)
+        # self.init_data = utils.get_grafana_init_json(self.init_path)
         # self.dashboard_data = utils.get_dashboard_json(self.dash_path)
 
         self.org_id: int = 1
@@ -106,7 +107,8 @@ class GrafanaInit:
         for folder_name, dashboard_fname in self.init_data["dashboards"].items():
             # Fetch the dashboard json dynamically
             print(f"Dashboard filename: {dashboard_fname}")
-            dashboard_data = utils.get_dashboard_json(f"configs/{dashboard_fname}")
+            dashboard_data = read_json(f"configs/{dashboard_fname}")
+            # dashboard_data = utils.get_dashboard_json(f"configs/{dashboard_fname}")
 
             try:
                 fol_response = asyncio.run(folder.create_folder(folder_name))
