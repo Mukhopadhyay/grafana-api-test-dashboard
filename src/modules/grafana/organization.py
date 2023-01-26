@@ -1,8 +1,9 @@
 from typing import Any, Dict, Optional
+
 from errors.exceptions import GrafanaHTTPError
 from modules.grafana import utils as grafana_utils
 from schemas import grafana_http as grafana_http_schemas
-from utils.http import put_async, get_async, post_async, patch_async, delete_async
+from utils.http import delete_async, get_async, patch_async, post_async, put_async
 
 
 async def update_user_role(org_id: int, user_id: int, role: Optional[str] = "Viewer") -> Dict[str, Any]:
@@ -15,13 +16,13 @@ async def update_user_role(org_id: int, user_id: int, role: Optional[str] = "Vie
 
 
 async def update_organization_details(
-    org_id: int, name: str, addr1: str, addr2: str, city: str, zip: str, state: str, country: str
+    org_id: int, name: str, addr1: str, addr2: str, city: str, zipcode: str, state: str, country: str
 ) -> Dict[str, Any]:
     url = f"{grafana_utils.get_organization_url()}s/{org_id}"
     model = grafana_http_schemas.CreateOrg(
         name=name,
         address=grafana_http_schemas.OrgAddress(
-            address1=addr1, address2=addr2, city=city, zipCode=zip, state=state, country=country
+            address1=addr1, address2=addr2, city=city, zipCode=zipcode, state=state, country=country
         ),
     )
     r, _, _, status = await put_async(url, data=model.dict())  # /api/orgs/:org_id/users

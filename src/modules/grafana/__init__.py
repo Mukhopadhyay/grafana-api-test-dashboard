@@ -1,9 +1,10 @@
 import asyncio
 from typing import List
-from utils.io import read_json
+
 from errors.exceptions import GrafanaHTTPError
-from schemas.grafana_init import GrafanaInit as GrafanaInitSchema
 from modules.grafana import dashboard, datasource, folder, organization, users, utils
+from schemas.grafana_init import GrafanaInit as GrafanaInitSchema
+from utils.io import read_json
 
 GRAFANA_INIT_JSON = "configs/grafana.init.json"
 DASHBOARD_JSON = "configs/dashboard.json"
@@ -15,8 +16,6 @@ class GrafanaInit:
         self.dash_path = DASHBOARD_JSON
 
         self.init_data = read_json(self.init_path)
-        # self.init_data = utils.get_grafana_init_json(self.init_path)
-        # self.dashboard_data = utils.get_dashboard_json(self.dash_path)
 
         self.org_id: int = 1
         self.datasource_uid: str = None  # This will be populated after setting the datasource
@@ -58,9 +57,7 @@ class GrafanaInit:
                 )
             except GrafanaHTTPError as graf_err:
                 print(f"{str(graf_err.message)}\nstatus: {graf_err.status_code}\n{graf_err.data}")
-                # self.org_id = 1  # This is the Main Org.
             else:
-                # self.org_id = org_resp["orgId"]
                 self.create_org_response = org_resp
                 print(f"Updated organization: {org.name}")
         else:

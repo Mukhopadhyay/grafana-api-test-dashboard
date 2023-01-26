@@ -4,6 +4,7 @@
 sleep 5
 
 # Database migration
+echo "DB migration"
 alembic revision -m "migration-script" --autogenerate
 alembic upgrade head
 

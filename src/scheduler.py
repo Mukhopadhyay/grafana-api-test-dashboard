@@ -1,4 +1,6 @@
-# This essentially schedules the api calls
+"""
+Scheduling the API Tests
+"""
 import time
 
 import schedule
@@ -7,7 +9,7 @@ from core import oss
 
 # Scheduling stuff
 # schedule.every(3).minutes.do(oss.osrm_route)
-schedule.every(10).seconds.do(oss.osrm)
+schedule.every(3).seconds.do(oss.osrm)
 
 
 # Driver code

@@ -6,14 +6,19 @@ from typing import Any, Dict, Optional
 from uuid import UUID
 
 from core.metadata import apis
-from database.crud.base import CRUDBase
+from database.crud.api import ApiCRUD
+from database.crud.response import ResponseCRUD
 from database.db import database
+
+# from database.crud.base import CRUDBase
 from models.models import Api, Response
 from utils import http
 
-response_crud = CRUDBase(Response)
-api_crud = CRUDBase(Api)
+# response_crud = CRUDBase(Response)
+# api_crud = CRUDBase(Api)
 
+response_crud = ResponseCRUD()
+api_crud = ApiCRUD()
 
 # Dictionary with {Name: Id} mapping
 API_ID: Dict[str, UUID] = {}
@@ -66,7 +71,7 @@ def osrm():
                 m.url,
             )
         )
-    except Exception as err:
+    except Exception as _:
         # Handle exception here
         pass
     else:

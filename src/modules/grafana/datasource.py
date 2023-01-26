@@ -4,8 +4,6 @@ from configs import database_config, grafana_config
 from errors.exceptions import GrafanaHTTPError
 from modules.grafana import utils as grafana_utils
 from schemas import grafana_http as grafana_http_schemas
-
-# from utils import http
 from utils.http import post_async
 
 

@@ -1,4 +1,3 @@
-import json
 from typing import Any, Dict
 
 from configs import grafana_config
@@ -42,19 +41,6 @@ def get_folder_url() -> str:
     endpoint = "/api/folders"
     url: str = f"{get_base_url()}{endpoint}"
     return url
-
-
-# TODO: Make one read json function
-# def get_grafana_init_json(path: str) -> Dict[Any, Any]:
-#     with open(path, "r") as f:
-#         ginit = json.load(f)
-#     return ginit
-
-
-# def get_dashboard_json(path: str) -> Dict[Any, Any]:
-#     with open(path, "r") as f:
-#         dash = json.load(f)
-#     return dash
 
 
 def validate_init(data: Dict[str, Any]) -> GrafanaInit:

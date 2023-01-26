@@ -4,12 +4,10 @@ from modules.grafana import GrafanaInit
 """
 Ordering in which to do things:
 
-* Create an organization
-* Select the organization as default
-* Create the users
-* Add users to the organization
-* Delete users from Main Org. if any
-* Create the datasources
+* Creates the users
+* Updates the default organization
+* Connects to the datasource
+* Creates the folder and adds dashboards to them
 
 """
 

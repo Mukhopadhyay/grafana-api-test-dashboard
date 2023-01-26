@@ -1,5 +1,5 @@
 """
-Project level ocnfigurations
+Project level configurations
 """
 from typing import Optional
 
@@ -19,12 +19,12 @@ class Settings(BaseSettings):
     pass
 
 
-class GrafanaHTTPEndpoints(BaseSettings):
-    datasource: str = "/api/datasources"
-    create_user: str = "/api/admin/users"
-    organization: str = "/api/org"
-    dashboard: str = "/api/dashboards"
-    folder: str = "/api/folders"
+# class GrafanaHTTPEndpoints(BaseSettings):
+#     datasource: str = "/api/datasources"
+#     create_user: str = "/api/admin/users"
+#     organization: str = "/api/org"
+#     dashboard: str = "/api/dashboards"
+#     folder: str = "/api/folders"
 
 
 class GrafanaDataSource(BaseSettings):
@@ -39,4 +39,4 @@ class GrafanaConfig(BaseSettings):
     def_password: Optional[str] = "admin"
     service_name: str = "grafana-dashboard"
     datasource: GrafanaDataSource = GrafanaDataSource(_env_file=".env.grafana", _env_file_encoding="utf-8")
-    endpoints: GrafanaHTTPEndpoints = GrafanaHTTPEndpoints()
+    # endpoints: GrafanaHTTPEndpoints = GrafanaHTTPEndpoints()

@@ -2,4 +2,4 @@
 
 sleep 5
 
-nohup python scheduler.py > nohup.out &
+nohup python scheduler.py > /dev/null &
