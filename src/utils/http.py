@@ -1,8 +1,8 @@
 import sys
 import time
-import aiohttp
 from typing import Any, Dict, Optional, Tuple
 
+import aiohttp
 
 
 def get_content_length(response: aiohttp.ClientResponse):

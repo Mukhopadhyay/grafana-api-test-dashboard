@@ -1,8 +1,9 @@
-from utils import http
-from typing import Dict, Any
+from typing import Any, Dict
+
 from errors.exceptions import GrafanaHTTPError
 from modules.grafana import utils as grafana_utils
 from schemas import grafana_http as grafana_http_schemas
+from utils import http
 
 
 async def create_user(name: str, email: str, login: str, password: str) -> Dict[str, Any]:

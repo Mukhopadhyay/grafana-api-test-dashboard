@@ -1,10 +1,11 @@
 from fastapi import APIRouter, Response
-from modules.grafana import organization
+
 from errors.exceptions import GrafanaHTTPError
+from modules.grafana import organization
 from schemas import grafana_http as grafana_schemas
 
-
 router = APIRouter()
+
 
 @router.get("/")
 async def get_current_organization(response: Response):
@@ -34,6 +35,7 @@ async def create_organization(model: grafana_schemas.CreateOrg, response: Respon
     else:
         return resp
 
+
 @router.get("/all/")
 async def get_all_organizations(response: Response):
     try:
@@ -43,6 +45,7 @@ async def get_all_organizations(response: Response):
         return grafana_schemas.ErrorResponse(message=err.message, response=err.data, status=err.status_code)
     else:
         return resp
+
 
 @router.get("/{org_id}/users")
 async def get_users_in_organization(org_id: int, response: Response):
@@ -87,6 +90,7 @@ async def delete_user_from_organization(org_id: int, user_id: int, response: Res
     else:
         return resp
 
+
 @router.get("/{org_id}")
 async def get_organization_by_id(org_id: int, response: Response):
     try:
@@ -97,6 +101,7 @@ async def get_organization_by_id(org_id: int, response: Response):
     else:
         return resp
 
+
 @router.get("/name/{org_name}")
 async def get_organization_by_name(org_name: str, response: Response):
     try:
@@ -106,6 +111,7 @@ async def get_organization_by_name(org_name: str, response: Response):
         return grafana_schemas.ErrorResponse(message=err.message, response=err.data, status=err.status_code)
     else:
         return resp
+
 
 @router.delete("/{org_id}")
 async def delete_organization_by_id(org_id: int, response: Response):
@@ -138,4 +144,3 @@ async def update_organization_details(org_id: int, response: Response):
         return grafana_schemas.ErrorResponse(message=err.message, response=err.data, status=err.status_code)
     else:
         return resp
-

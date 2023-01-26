@@ -4,7 +4,9 @@ from configs import database_config, grafana_config
 from errors.exceptions import GrafanaHTTPError
 from modules.grafana import utils as grafana_utils
 from schemas import grafana_http as grafana_http_schemas
-from utils import http
+
+# from utils import http
+from utils.http import post_async
 
 
 async def set_postgres_source() -> Dict[str, Any]:
@@ -18,7 +20,7 @@ async def set_postgres_source() -> Dict[str, Any]:
         basicAuthUser=grafana_config.def_username,
         secureJsonData=grafana_http_schemas.SecureJsonData(password=database_config.postgres_password),
     )
-    r, _, _, status = await http.post_async(grafana_utils.get_data_source_url(), data=model.dict())
+    r, _, _, status = await post_async(grafana_utils.get_data_source_url(), data=model.dict())
     if status != 200:
         raise GrafanaHTTPError("Could not create a datasource", status_code=status, data=r)
     return r

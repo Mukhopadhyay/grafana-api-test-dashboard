@@ -1,9 +1,11 @@
-from modules.grafana import users
 from fastapi import APIRouter, Response
+
 from errors.exceptions import GrafanaHTTPError
+from modules.grafana import users
 from schemas import grafana_http as grafana_schemas
 
 router = APIRouter()
+
 
 @router.post("/")
 async def create_new_user(model: grafana_schemas.CreateUser, response: Response):

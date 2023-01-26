@@ -1,10 +1,11 @@
 import json
-from typing import Any, Dict, Optional
+from typing import Any, Dict
 
-from pydantic import ValidationError
-
-from configs import database_config, grafana_config
+# from configs import database_config, grafana_config
+from configs import grafana_config
 from schemas.grafana_init import GrafanaInit
+
+# from pydantic import ValidationError
 
 
 def get_base_url() -> str:
@@ -43,7 +44,7 @@ def get_folder_url() -> str:
 
 
 # TODO: Make one read json function
-def get_grafana_init_json(path: Optional[str] = "configs/grafana.init.json") -> Dict[Any, Any]:
+def get_grafana_init_json(path: str) -> Dict[Any, Any]:
     with open(path, "r") as f:
         ginit = json.load(f)
     return ginit
