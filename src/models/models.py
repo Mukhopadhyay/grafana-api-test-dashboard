@@ -1,8 +1,8 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, Numeric, String
-from sqlalchemy.orm import relationship
 from sqlalchemy_utils import UUIDType
+from sqlalchemy.orm import relationship
 
 from models.base import Base, CreateMixin, UpdateMixin
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, Numeric, String
 
 
 class Api(Base, CreateMixin, UpdateMixin):
